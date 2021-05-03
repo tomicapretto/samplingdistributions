@@ -1,0 +1,98 @@
+@media only screen and (min-width: 1200px) {
+  .ui.ui.ui.container:not(.fluid) {
+    width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+#sidebar {
+  background: #4C5760;
+  width: 18rem;
+}
+
+.ui.form .field>label {
+  color: rgba(255, 255, 255, .9);
+  font-size: 1em;
+}
+
+.sidebar_header {
+  color: rgba(255, 255, 255, .9);
+  text-align:center;
+  font-weight:bold;
+}
+
+.dist_header {
+  color: rgba(255, 255, 255, .9);
+  text-align:center;
+  font-weight:bold;
+}
+
+.link_add {
+  color: rgba(255, 255, 255, 0.9);
+  margin-left: -10px;
+}
+
+.link_add:hover {
+  color: #27ae60;
+}
+
+.link_remove {
+  color: rgba(255, 255, 255, 0.9);
+  margin-left: -10px;
+}
+
+.link_remove:hover {
+    color: #e74c3c;
+}
+
+.ui.slider .inner .track-fill {
+  background-color: #34495e;
+}
+
+.ui.slider .inner .thumb {
+    height: 1.25em;
+    width: 1.25em;
+}
+
+.ui.slider:not(.vertical):not(.checkbox) {
+    width: 100%;
+    padding: .75em 0em;
+}
+
+.ui.grid>.row {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+
+.card-header {
+  font-size:16px;
+  font-weight:bold;
+  margin-bottom: 0px;
+}
+
+/*Override default*/
+.shiny-notification-error {
+    color: #fff;
+    background-color: #ff5549;
+    border: 1px solid #ebccd1;
+}
+
+#shiny-notification-panel {
+    bottom: 2%;
+    right: 1%;
+}
+
+.shiny-notification-close {
+    color: #fff;
+}
+
+.footer-link {
+  color: rgba(255, 255, 255, .8);
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
+}
