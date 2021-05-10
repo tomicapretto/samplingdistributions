@@ -1,3 +1,5 @@
+# Custom select input that has an animation when changin between options.
+# See `www/selector-input/binding.js`
 selectorInput = function(inputId, choices) {
   form = tags$div(
     class = "selector-input",
@@ -37,7 +39,7 @@ selectorInput = function(inputId, choices) {
   htmltools::attachDependencies(form, deps)
 }
 
-
+# Utility function to properly add choices to the input.
 selectorOptions = function(choices) {
   first = paste0(
     '<option class = "animate-bottom" value = "', choices[1], '" selected>', 

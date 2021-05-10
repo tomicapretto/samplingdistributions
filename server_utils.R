@@ -1,3 +1,6 @@
+# Inserts a div with information related to a distribution.
+# The id is to keep track of the distribution when its parameters are modified
+# or it is deleted.
 add_distribution = function(distribution, id) {
   insertUI(
     selector = "#distributions_div",
@@ -5,6 +8,7 @@ add_distribution = function(distribution, id) {
   )
 }
 
+# Utility function to obtain a header given a distribution name.
 get_dist_header = function(distribution) {
   switch(distribution,
    "norm" = "Normal",
@@ -16,6 +20,8 @@ get_dist_header = function(distribution) {
   )
 }
 
+# Generates the UI associated with the parameters of a distribution
+# The inputs are associated with the unique id of the component.
 distribution_params = function(distribution, id) {
 
   names = get_param_names(distribution)
@@ -80,6 +86,8 @@ distribution_params = function(distribution, id) {
   )
 }
 
+# Parameter names for each distribution family. 
+# Backslashes are added because these names are passed to `katex`
 get_param_names = function(distribution) {
   switch(distribution,
          "norm" = c("\\mu", "\\sigma"),
@@ -91,6 +99,7 @@ get_param_names = function(distribution) {
   )
 }
 
+# Return default values for each distribution family
 get_default_values = function(distribution) {
   switch(distribution,
          "norm" = c(0, 1),
@@ -102,8 +111,8 @@ get_default_values = function(distribution) {
   )
 }
 
+# Return domain for each distribution family.
 get_range = function(distribution) {
-  # TODO: Check values passed are acceptable
   switch(distribution,
          "norm" = list(c(NA, NA), c(0, NA)),
          "t" = list(c(0, NA), c(NA, NA)),

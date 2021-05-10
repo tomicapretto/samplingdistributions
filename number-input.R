@@ -1,10 +1,17 @@
+# Custom numeric input. See `www/number-input/binding.js` for source.
 numberInput = function(inputId, value = 0, min = NULL, max = NULL, step = 1) {
   form = tags$div(
     class = "number-input",
     id = inputId,
     tags$div(
       class = "number-input-controls",
-      tags$input(type = "number", min = min, max = max, value = value, step = step),
+      tags$input(
+        type = "number", 
+        min = min, 
+        max = max, 
+        value = value, 
+        step = step
+      ),
       tags$div(
         style = "line-height: 25px; margin-left: auto;",
         tags$div(

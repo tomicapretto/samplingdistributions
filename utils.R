@@ -1,3 +1,4 @@
+# Custom stop function used within the app.
 stop2 = function(message, call = NULL, ...) {
   err = structure(
     list(
@@ -10,6 +11,8 @@ stop2 = function(message, call = NULL, ...) {
   stop(err)
 }
 
+# Catches errors generated in the app and show notification instead of 
+# breaking the app.
 appHandler = function(expr) {
   tryCatch({
     expr

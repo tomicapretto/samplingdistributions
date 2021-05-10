@@ -1,3 +1,4 @@
+# Link used to add new distribution.
 link_add = function(id) {
   tags$a(
     id = id,
@@ -8,6 +9,7 @@ link_add = function(id) {
   )
 }
 
+# Link used to remove new distribution.
 link_remove = function(id) {
   tags$a(
     id = id,
@@ -18,6 +20,7 @@ link_remove = function(id) {
   )
 }
 
+# Utility function to add grid row
 ui_row = function(...) {
   tags$div(
     class = "ui grid",
@@ -28,6 +31,7 @@ ui_row = function(...) {
   )
 }
 
+# Utility function to add grid column
 ui_col = function(width, ...) {
   opts = c("one", "two", "three", "four", "five", "six", "seven", "eight",
            "nine", "ten", "eleven", "twelve", "thirtheen", "fourteen",

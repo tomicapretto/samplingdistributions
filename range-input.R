@@ -1,3 +1,5 @@
+# Custom range input. Like built-in slider, but with appropiate styles.
+# see `www/range-input/binding.js`
 rangeInput = function(inputId, value = 20, min = 0, max = 100, step = 1) {
   form = tags$div(
     class = "range-input",
