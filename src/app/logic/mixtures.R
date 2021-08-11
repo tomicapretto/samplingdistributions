@@ -1,7 +1,3 @@
-# class = FALSE to 
-# cloneable = FALSE to 
-
-
 # This R6 class encapsulates the data and behavior of the distribution mixture
 # that is created on the fly in the app.
 # It keeps track of the distributions added, and knows how to generate both
@@ -14,7 +10,7 @@
 # but it could be any list-like object that can be subsetable by
 # object[["name"]]
 
-Mixture = R6::R6Class(
+Mixture <- R6::R6Class(
   "Mixture",
   class = FALSE, # disable S3 dispatch
   cloneable = FALSE, # save some memory
@@ -28,7 +24,7 @@ Mixture = R6::R6Class(
     
     # Add component to the mixture, making sure the id assigned is unique.
     add = function(dist) {
-      id = as.character(self$new_id())
+      id <- as.character(self$new_id())
       self$components[[id]] = list(id = id, dist = dist)
       return(id)
     },
@@ -43,12 +39,12 @@ Mixture = R6::R6Class(
     # If the deletion of any component leaves a gap in the sequence, this 
     # function fills that gap.
     new_id = function() {
-      ids = as.numeric(names(self$components))
-      ids_seq = seq(length(self$components))
+      ids <- as.numeric(names(self$components))
+      ids_seq <- seq(length(self$components))
       if (length(setdiff(ids_seq, ids)) > 0) {
-        id = setdiff(ids_seq, ids)[1]
+        id <- setdiff(ids_seq, ids)[1]
       } else {
-        id = length(self$components) + 1
+        id <- length(self$components) + 1
       }
       return(id)
     },
@@ -61,7 +57,7 @@ Mixture = R6::R6Class(
     # Return current parameter values for each component 
     get_params = function(param_list) {
      lapply(self$components, function(x) {
-        param_names = paste0("dist_", x$id, "_param_", 1:2)
+        param_names <- paste0("dist_", x$id, "_param_", 1:2)
         lapply(param_names, function(x) param_list[[x]])
       })
     },
@@ -82,8 +78,8 @@ Mixture = R6::R6Class(
     
     # Obtain random values from the mixture
     mixture_rvs = function(param_list, wts, size, reps) {
-      .l = list(self$get_dists(), self$get_params(param_list), round(wts * size))
-      .f = function(x) {
+      .l <- list(self$get_dists(), self$get_params(param_list), round(wts * size))
+      .f <- function(x) {
         unlist(purrr::pmap(.l, self$component_rvs), use.names = FALSE)
       }
       replicate(reps, .f(), simplify = FALSE)
@@ -91,21 +87,21 @@ Mixture = R6::R6Class(
     
     # Obtain random values for a single component. Used within `mixture_rvs()`
     component_rvs = function(distribution, params, size) {
-      .f = paste0("r", distribution)
-      .args = c(list(size), params)
+      .f <- paste0("r", distribution)
+      .args <- c(list(size), params)
       do.call(.f, .args)
     },
     
     # Obtain the pdf for the mixture.
     mixture_pdf = function(param_list, wts) {
-      dists = self$get_dists()
-      params = self$get_params(param_list)
+      dists <- self$get_dists()
+      params <- self$get_params(param_list)
 
-      grid = self$mixture_grid(dists, params)
+      grid <- self$mixture_grid(dists, params)
 
-      .l = list(dists, params)
-      pdf = unlist(purrr::pmap(.l, self$component_pdf, grid = grid))
-      pdf = as.vector(matrix(pdf, ncol = length(wts)) %*% wts)
+      .l <- list(dists, params)
+      pdf <- unlist(purrr::pmap(.l, self$component_pdf, grid = grid))
+      pdf <- as.vector(matrix(pdf, ncol = length(wts)) %*% wts)
 
       # In some edge cases pdf is `Inf`
       pdf[is.infinite(pdf)] = NA
@@ -115,21 +111,21 @@ Mixture = R6::R6Class(
     
     # Obtain the pdf for a component in the mixture.
     component_pdf = function(distribution, params, grid) {
-      .f = paste0("d", distribution)
-      .args = c(list(grid), params)
+      .f <- paste0("d", distribution)
+      .args <- c(list(grid), params)
       do.call(.f, .args)
     },
     
     # Compute a grid over the support of the mixture.
     mixture_grid = function(distributions, params) {
-      .l = list(distributions, params)
-      out = unlist(purrr::pmap(.l, self$pdf_bounds))
+      .l <- list(distributions, params)
+      out <- unlist(purrr::pmap(.l, self$pdf_bounds))
       seq(min(out), max(out), length.out = 250)
     },
     
     # Obtain domain bounds for a given pdf and parameter values.
     pdf_bounds = function(distribution, params) {
-      .f = pdf_bounds_list[[distribution]]
+      .f <- pdf_bounds_list[[distribution]]
       .f(params)
     },
     
@@ -146,9 +142,9 @@ Mixture = R6::R6Class(
 # we live we can't plot from -infty to +infty.
 # Also, use machine precision to avoid boundary issues 
 # (i.e. evaluating at 0 when x must be positive)
-pdf_bounds_list = list(
+pdf_bounds_list <- list(
   "norm" = function(params) {
-    width = 3 * params[[2]]
+    width <- 3 * params[[2]]
     c(params[[1]] - width, params[[1]] + width)
   },
   "t" = function(params) {

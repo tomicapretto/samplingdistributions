@@ -1,9 +1,9 @@
-source("ui_utils.R")
-source("number-input.R")
-source("range-input.R")
-source("selector-input.R")
+source(here("src", "app", "utils", "ui.R"))
+source(here("src", "app", "inputs" ,"number-input.R"))
+source(here("src", "app", "inputs" ,"range-input.R"))
+source(here("src", "app", "inputs" ,"selector-input.R"))
 
-sidebar = function() {
+sidebar <- function() {
   tags$div(
     class = "ui sidebar inverted vertical visible menu",
     style = "display:flex; flex-direction:column; margin:0;",
@@ -40,9 +40,7 @@ sidebar = function() {
         )
       )
     ),
-    tags$div(
-      id = "distributions_div"
-    ),
+    tags$div(id = "distributions_div"),
     tags$div(
       class = "item",
       style = "margin-top:auto",
@@ -71,52 +69,48 @@ sidebar = function() {
   )
 }
 
-body = function() {
+body <- function() {
   tags$div(
     style = "margin-left: 260px;",
     tags$div(
       class = "ui container",
       tags$h1(class = "ui header", "Sampling distributions playground"),
-      ui_row(
-        style = "margin-bottom:25px;",
-        ui_col(
-          width = 4,
-          tags$p("Sample size", class = "card-header"),
-          tags$div(
-            numberInput("size", value = 20, min = 2, max = 1000)
-          )
+      tags$div(
+        class = "input-container",
+        numberInput(
+          "size", "Sample size", 
+          value = 20, min = 2, max = 1000
         ),
-        ui_col(
-          width = 4,
-          tags$p("Repetitions", class = "card-header"),
-          numberInput("repetitions", value = 200, min = 10, max = 1000, step = 10)
+        numberInput(
+          "repetitions", "Repetitions", 
+          value = 200, min = 10, max = 1000, step = 10
         ),
-        ui_col(
-          width = 4,
-          tags$p("Statistic", class = "card-header"),
-          selectorInput("statistic", c("Mean", "Median", "Minimum", "Maximum", "Percentile"))
+        selectorInput(
+          "statistic", "Statistic", 
+          c("Mean", "Median", "Minimum", "Maximum", "Percentile")
         ),
-        ui_col(
-          width = 4,
+        tags$div(
+          style = "flex: 1;",
           conditionalPanel(
             "input.statistic == 'Percentile'",
-            tags$div(
-              tags$p("Percentile", class = "card-header"),
-              numberInput("percentile", value = 25, min = 1, max = 99, step = 1)
+            numberInput(
+              "percentile", "Percentile", 
+              value = 25, min = 1, max = 99, step = 1
             )
           )
         )
       ),
       tags$div(
-        echarts4r::echarts4rOutput("plot_rvs", height = "340px", width = "85%"),
-        echarts4r::echarts4rOutput("plot_pdf", height = "340px", width = "85%"),
+        style = "margin-top: 20px",
+        echarts4r::echarts4rOutput("plot_rvs", height = "340px", width = "90%"),
+        echarts4r::echarts4rOutput("plot_pdf", height = "340px", width = "90%"),
         align = "center"
       )
     )
   )
 }
 
-ui = shiny.semantic::semanticPage(
+ui <- shiny.semantic::semanticPage(
     tags$head(shiny::includeCSS(file.path("www", "style.css"))),
     shinyjs::useShinyjs(),
     sidebar(),

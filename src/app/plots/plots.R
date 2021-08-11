@@ -1,7 +1,5 @@
-library(magrittr)
-
 # Histogram made wih echarts4r
-histogram = function(x) {
+histogram <- function(x) {
   echarts4r::e_charts(data.frame(x = x)) %>%
     echarts4r::e_histogram(
       x, name = "histogram", breaks = 30, legend = FALSE
@@ -13,7 +11,7 @@ histogram = function(x) {
 }
 
 # Line plot that contains densityfunction made wih echarts4r
-density_plot = function(x, pdf) {
+density_plot <- function(x, pdf) {
   echarts4r::e_charts(data.frame(x = x, pdf = pdf), x, dispose = FALSE) %>%
     echarts4r::e_line(pdf, symbol = "none", clip = TRUE, legend = FALSE) %>%
     echarts4r::e_x_axis(axisLine = list(show = FALSE)) %>%

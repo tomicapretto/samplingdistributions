@@ -19,9 +19,9 @@ appHandler = function(expr) {
   },
   shiny.silent.error = function(cnd) NULL,
   samp.error = function(cnd) {
-    shiny::showNotification(cnd$message, type = "error")
+    showNotification(cnd$message, type = "error")
   },
   error = function(cnd) {
-    shiny::showNotification("Unexpected error ocurred.", type = "error")
+    showNotification("Unexpected error ocurred.", type = "error")
   })
 }

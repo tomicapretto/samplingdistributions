@@ -1,7 +1,7 @@
 # Inserts a div with information related to a distribution.
 # The id is to keep track of the distribution when its parameters are modified
 # or it is deleted.
-add_distribution = function(distribution, id) {
+add_distribution <- function(distribution, id) {
   insertUI(
     selector = "#distributions_div",
     ui = distribution_params(distribution, id)
@@ -9,7 +9,7 @@ add_distribution = function(distribution, id) {
 }
 
 # Utility function to obtain a header given a distribution name.
-get_dist_header = function(distribution) {
+get_dist_header <- function(distribution) {
   switch(distribution,
    "norm" = "Normal",
    "t" = "T-student",
@@ -22,7 +22,7 @@ get_dist_header = function(distribution) {
 
 # Generates the UI associated with the parameters of a distribution
 # The inputs are associated with the unique id of the component.
-distribution_params = function(distribution, id) {
+distribution_params <- function(distribution, id) {
 
   names = get_param_names(distribution)
   values = get_default_values(distribution)
@@ -88,37 +88,40 @@ distribution_params = function(distribution, id) {
 
 # Parameter names for each distribution family. 
 # Backslashes are added because these names are passed to `katex`
-get_param_names = function(distribution) {
-  switch(distribution,
-         "norm" = c("\\mu", "\\sigma"),
-         "t" = c("\\nu", "\\mu"),
-         "gamma" = c("\\alpha", "\\beta"), # shape and rate
-         "beta" = c("\\alpha", "\\beta"),
-         "lnorm" = c("\\mu", "\\sigma"), # convert to log scale
-         "unif" = c("a", "b")
+get_param_names <- function(distribution) {
+  switch(
+    distribution,
+     "norm" = c("\\mu", "\\sigma"),
+     "t" = c("\\nu", "\\mu"),
+     "gamma" = c("\\alpha", "\\beta"), # shape and rate
+     "beta" = c("\\alpha", "\\beta"),
+     "lnorm" = c("\\mu", "\\sigma"), # convert to log scale
+     "unif" = c("a", "b")
   )
 }
 
 # Return default values for each distribution family
-get_default_values = function(distribution) {
-  switch(distribution,
-         "norm" = c(0, 1),
-         "t" = c(5, 0),
-         "gamma" = ,
-         "beta" = c(2, 2),
-         "lnorm" = c(0, 1),
-         "unif" = c(-1, 1)
+get_default_values <- function(distribution) {
+  switch(
+    distribution,
+    "norm" = c(0, 1),
+    "t" = c(5, 0),
+    "gamma" = ,
+    "beta" = c(2, 2),
+    "lnorm" = c(0, 1),
+    "unif" = c(-1, 1)
   )
 }
 
 # Return domain for each distribution family.
-get_range = function(distribution) {
-  switch(distribution,
-         "norm" = list(c(NA, NA), c(0, NA)),
-         "t" = list(c(0, NA), c(NA, NA)),
-         "gamma" = ,
-         "beta" = list(c(0, NA), c(0, NA)),
-         "lnorm" = list(c(NA, NA), c(0, NA)),
-         "unif" = list(c(NA, NA), c(NA, NA))
+get_range <- function(distribution) {
+  switch(
+    distribution,
+    "norm" = list(c(NA, NA), c(0, NA)),
+    "t" = list(c(0, NA), c(NA, NA)),
+    "gamma" = ,
+    "beta" = list(c(0, NA), c(0, NA)),
+    "lnorm" = list(c(NA, NA), c(0, NA)),
+    "unif" = list(c(NA, NA), c(NA, NA))
   )
 }

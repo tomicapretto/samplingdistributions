@@ -1,11 +1,9 @@
-library(markdown)
+source(here("src", "app", "utils", "server.R"))
+source(here("src", "app", "utils", "global.R"))
+source(here("src", "app", "logic", "mixtures.R"))
+source(here("src", "app", "plots", "plots.R"))
 
-source("utils.R")
-source("server_utils.R")
-source("mixtures.R")
-source("plots.R")
-
-server = function(input, output, session) {
+server <- function(input, output, session) {
   
   mixture = Mixture$new()
   
@@ -36,11 +34,11 @@ server = function(input, output, session) {
     )
     
     # Create observer on the parameters and the inputs.
-    observer = observeEvent(
+    observer <- observeEvent(
       c(reactive_params(),
         reactive_inputs()), {
       appHandler({
-        wts = appHandler(mixture$get_weights(input))
+        wts <- appHandler(mixture$get_weights(input))
         if (sum(wts) != 1) {
           shiny::showNotification(
             "Weights must add up to 1.",
@@ -52,8 +50,8 @@ server = function(input, output, session) {
         } else {
           shiny::removeNotification("weight_noti")
         }
-        store$rvs_list = mixture$mixture_rvs(input, wts, input$size, input$repetitions)
-        store$pdf = mixture$mixture_pdf(input, wts)
+        store$rvs_list <- mixture$mixture_rvs(input, wts, input$size, input$repetitions)
+        store$pdf <- mixture$mixture_pdf(input, wts)
       })
     }, ignoreInit = TRUE)
 
@@ -65,7 +63,7 @@ server = function(input, output, session) {
   })
   
   # Plot histogram with the sampling distribution of the statistic selected.
-  output$plot_rvs = echarts4r::renderEcharts4r({
+  output$plot_rvs <- echarts4r::renderEcharts4r({
     req(store$rvs_list)
     fun = switch(
       shiny::isolate(input$statistic),
@@ -74,25 +72,27 @@ server = function(input, output, session) {
       "Minimum" = min,
       "Maximum" = max,
       "Percentile" = function(x) {
-        stats::quantile(x, probs = shiny::isolate(input$percentile) / 100)
+        quantile(x, probs = isolate(input$percentile) / 100)
       }
     )
     histogram(vapply(store$rvs_list, fun, numeric(1)))
   })
   
   # Plot density of the mixture
-  output$plot_pdf = echarts4r::renderEcharts4r({
+  output$plot_pdf <- echarts4r::renderEcharts4r({
     req(store$pdf)
     density_plot(store$pdf$x, store$pdf$pdf)
   })
   
   # Show how to use the app.
   observeEvent(input$how_to, {
-    shiny.semantic::create_modal(shiny.semantic::modal(
-      id = "simple-modal",
-      header = h2("How to use this app"),
-      includeMarkdown("howto.md")
-    ))
+    shiny.semantic::create_modal(
+        shiny.semantic::modal(
+        id = "simple-modal",
+        header = tags$h2("How to use this app"),
+        includeMarkdown(here("src", "app", "www", "howto.md"))
+      )
+    )
   })
   
 }

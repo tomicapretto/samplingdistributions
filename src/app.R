@@ -1,0 +1,2 @@
+library(shiny)
+shinyAppDir(here::here("src", "app"))

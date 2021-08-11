@@ -1,34 +1,38 @@
 # Custom select input that has an animation when changin between options.
 # See `www/selector-input/binding.js`
-selectorInput = function(inputId, choices) {
-  form = tags$div(
-    class = "selector-input",
-    id = inputId,
+selectorInput <- function(inputId, label, choices) {
+  form <- tags$div(
+    class = "top-input",
+    tags$p(label, class = "card-header"),
     tags$div(
-      class = "data",
-      selectorOptions(choices)
-    ),
-    tags$div(
-      class = "select-input-controls",
+      class = "selector-input",
+      id = inputId,
       tags$div(
-        class = "selection",
-        choices[1]
+        class = "data",
+        selectorOptions(choices)
       ),
       tags$div(
-        style = "line-height: 25px; margin-left: auto;",
+        class = "select-input-controls",
         tags$div(
-          id = "step-up",
-          list(shiny::icon("angle-up"), "")
+          class = "selection",
+          choices[1]
         ),
         tags$div(
-          id = "step-down",
-          list(shiny::icon("angle-down"), "")
+          class = "input-arrows",
+          tags$div(
+            id = "step-up",
+            list(shiny::icon("angle-up"), "")
+          ),
+          tags$div(
+            id = "step-down",
+            list(shiny::icon("angle-down"), "")
+          )
         )
       )
     )
   )
 
-  deps = htmltools::htmlDependency(
+  deps <- htmltools::htmlDependency(
     name = "selectorInput",
     version = "1.0.0",
     src = c(file = file.path("www", "selector-input")),
@@ -40,7 +44,7 @@ selectorInput = function(inputId, choices) {
 }
 
 # Utility function to properly add choices to the input.
-selectorOptions = function(choices) {
+selectorOptions <- function(choices) {
   first = paste0(
     '<option class = "animate-bottom" value = "', choices[1], '" selected>', 
     choices[1], '</option>'

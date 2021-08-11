@@ -1,1 +1,1 @@
-source("renv/activate.R")
+source(here::here("src", "renv", "activate.R"))

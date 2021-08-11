@@ -128,20 +128,17 @@
   display:none;
 }
 
-
 .select-input-controls {
     display: flex;
-    height: 50px;
-    line-height: 50px;
     width: 100%;
 }
 
-
 .select-input-controls .selection {
-  font-size: 28px;
-  font-weight: bold;
-  border-width: 0;
+  align-self: center;
   border: none;
+  border-width: 0;
+  font-size: 26px;
+  font-weight: bold;
   animation-duration: 150ms;
 }
 
@@ -156,17 +153,4 @@
   text-decoration: none;
   outline: none;
   cursor: pointer;
-}
-
-
-@media only screen and (max-width: 860px) {
-  .select-input-controls .selection {
-    font-size: 18px;
-  }
-}
-
-@media only screen and (max-width: 1000px) and (min-width: 861px) {
-  .select-input-controls .selection {
-    font-size: 24px;
-  }
 }

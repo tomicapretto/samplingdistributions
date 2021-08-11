@@ -1,4 +1,3 @@
-
 /* Chrome, Safari, Edge, Opera */
 .number-input input::-webkit-outer-spin-button,
 .number-input input::-webkit-inner-spin-button {
@@ -8,23 +7,16 @@
     margin: 0;
 }
 
-/* Firefox
-.number-input input[type=number] {
-  -moz-appearance: textfield;
-}*/
-
 .number-input-controls {
   display: flex;
-  height: 50px;
-  line-height: 50px;
   width: 100%;
 }
 
 .number-input-controls input {
+  border: none;
+  border-width: 0;
   font-size: 28px;
   font-weight: bold;
-  border-width: 0;
-  border: none;
 }
 
 .number-input-controls input:focus {
