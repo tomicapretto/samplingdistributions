@@ -1,2 +1,1 @@
-library(shiny)
-shinyAppDir(here::here("src", "app"))
+shiny::shinyAppDir(here::here("src", "app"))
