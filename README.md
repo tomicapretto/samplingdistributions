@@ -10,7 +10,7 @@ This project uses `renv` to encapsulate packages and versions used to run this
 application. You can clone this repository, call `renv::restore()` to install 
 the packages in the `renv.lock` file, and then run 
 
-```
+```r
 shiny::shinyAppDir("src")
 ```
 
@@ -18,7 +18,7 @@ from the root of this project.
 
 Anoher option is to install dependencies manually and run
 
-```
+```r
 shiny::runGitHub("tomicapretto/samplingdistributions", subdir = "src")
 ```
 
